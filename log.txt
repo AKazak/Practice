@@ -1,0 +1,11 @@
+commit f309071772900fd5ce3701776914029880812088
+Author: Казак Антон С <Ваш e-mail>
+Date:   Tue Feb 9 11:02:09 2016 +0200
+
+    Add status.txt
+
+commit 489c2554074f973738d9a0b2f415f0b61c61a9c4
+Author: Казак Антон С <Ваш e-mail>
+Date:   Tue Feb 9 10:58:38 2016 +0200
+
+    Add.gitignore
