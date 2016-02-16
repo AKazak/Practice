@@ -9,19 +9,19 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class Chat {
-    private ArrayList<Message> alMessage;
+    private List<Message> alMessage;
     private Singleton log = Singleton.instance;
-    private int countAddMessage;
-    private int countDeleteMessage;
-    private int countFindMessage;
+    private int countAdd;
+    private int countDelete;
+    private int countFind;
+    public final int MAX_MESSAGE_LENGTH = 140;
 
     Chat(){
-        alMessage = new ArrayList<Message>();
-        countAddMessage = 0;
-        countDeleteMessage = 0;
-        countFindMessage = 0;
+        alMessage = new ArrayList<>();
+        countAdd = 0;
+        countDelete = 0;
+        countFind = 0;
     }
 
     public void addMessage(){
@@ -35,11 +35,14 @@ public class Chat {
             String timestamp = ((Long)date.getTime()).toString();
             Message mess = new Message(author, message, timestamp);
             alMessage.add(mess);
-            countAddMessage++;
+            countAdd++;
             log.add("Info", "Message from " + mess.getAuthor() + " added");
+            if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
+                log.add("Warning", "Length of this message is more than 140 characters");
+            }
         } catch(IOException e){
-            System.err.println("Error" + e.getMessage());
-            log.add("Error", "Erro r" + e.getMessage());
+            System.err.println("Error " + e.getMessage());
+            log.add("Error", "Error " + e.getMessage());
         }
     }
 
@@ -50,7 +53,7 @@ public class Chat {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject;
             Object obj = parser.parse(infFromFile);
-            int j = 0;
+            int j;
             JSONArray jsonArray = (JSONArray) obj;
             for(int i = 0; i < jsonArray.size(); i++){
                 j = 0;
@@ -67,15 +70,18 @@ public class Chat {
                 }
                 if(j == 0){
                     alMessage.add(mess);
-                    countAddMessage++;
+                    countAdd++;
                     log.add("Info", "Add 1 message from file log.txt");
+                    if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
+                        log.add("Warning", "Length of this message is more than 140 characters");
+                    }
                 }
             }
         } catch (org.json.simple.parser.ParseException pe) {
-            System.err.println("Error" + pe.getMessage());
+            System.err.println("Error " + pe.getMessage());
             log.add("Error", "Error " + pe.getMessage());
         } catch (IOException e){
-            System.err.println("Error" + e.getMessage());
+            System.err.println("Error " + e.getMessage());
             log.add("Error", "Error " + e.getMessage());
         }
     }
@@ -89,7 +95,7 @@ public class Chat {
                 if (m.getId().equals(id)) {
                     alMessage.remove(m);
                     log.add("Info", "Message with id " + id + " has been deleted");
-                    countDeleteMessage++;
+                    countDelete++;
                 }
             }
         } catch(IOException e){
@@ -111,10 +117,13 @@ public class Chat {
             Message mess = new Message(author, message, timestamp);
             alMessage.add(mess);
             ps.println(mess.toJSON());
-            countAddMessage++;
+            countAdd++;
             log.add("Info", "Message to file output.txt from " + mess.getAuthor() + " added");
+            if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
+                log.add("Warning", "Length of this message is more than 140 characters");
+            }
         } catch (IOException e){
-            System.err.println("Error" + e.getMessage());
+            System.err.println("Error " + e.getMessage());
             log.add("Error", "Error " + e.getMessage());
         }
     }
@@ -124,12 +133,7 @@ public class Chat {
     }
 
     public boolean isEmpty(){
-        if(alMessage.isEmpty()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return alMessage.isEmpty();
     }
 
     public void historyPeriod(){
@@ -159,7 +163,7 @@ public class Chat {
                         if(calendar.after(calendar1)){
                             if(calendar.before(calendar2) || calendar.equals(calendar2)){
                                 System.out.println(m);
-                                countFindMessage++;
+                                countFind++;
                                 log.add("Info", "Message was found in period " + str);
                                 flag1 = true;
                             }
@@ -187,7 +191,7 @@ public class Chat {
             for(Message m: alMessage){
                 if(m.getAuthor().equals(author)){
                     System.out.println(m);
-                    countFindMessage++;
+                    countFind++;
                     log.add("Info", "Message with author " + author + " was found");
                     flag = true;
                 }
@@ -211,7 +215,7 @@ public class Chat {
             for(Message m: alMessage){
                 if(m.getMessage().contains(word)){
                     System.out.println(m);
-                    countFindMessage++;
+                    countFind++;
                     flag = true;
                 }
             }
@@ -237,7 +241,7 @@ public class Chat {
                 matcher = pattern.matcher(m.getMessage());
                 if(matcher.matches()){
                     System.out.println(m);
-                    countFindMessage++;
+                    countFind++;
                     log.add("Info", "Message was found in the regular expression " + regular);
                     flag = true;
                 }
@@ -253,9 +257,9 @@ public class Chat {
     }
 
     public void logAdd(){
-        log.add("Info", "The number of messages added " + countAddMessage);
-        log.add("Info", "The number of messages deleted " + countDeleteMessage);
-        log.add("Info", "The number of messages found " + countFindMessage);
+        log.add("Info", "The number of messages added " + countAdd);
+        log.add("Info", "The number of messages deleted " + countDelete);
+        log.add("Info", "The number of messages found " + countFind);
     }
 
     public void print(){

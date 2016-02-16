@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class CleanCode2 {
     public static void main(String []args){
         try{
-
             Chat chat = new Chat();
             boolean flag = true;
             int menuCount;
