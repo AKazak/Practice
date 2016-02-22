@@ -55,34 +55,31 @@ public class Chat {
             Object obj = parser.parse(infFromFile);
             int j;
             JSONArray jsonArray = (JSONArray) obj;
-            for(int i = 0; i < jsonArray.size(); i++){
+            for (Object aJsonArray : jsonArray) {
                 j = 0;
-                jsonObject = (JSONObject) jsonArray.get(i);
+                jsonObject = (JSONObject) aJsonArray;
                 String id = jsonObject.get("id").toString();
                 String author = jsonObject.get("author").toString();
                 String message = jsonObject.get("message").toString();
                 String timestamp = jsonObject.get("timestamp").toString();
                 Message mess = new Message(id, author, message, timestamp);
-                for(Message m: alMessage){
-                    if(m.getId().equals(mess.getId())){
+                for (Message m : alMessage) {
+                    if (m.getId().equals(mess.getId())) {
                         j = 1;
                     }
                 }
-                if(j == 0){
+                if (j == 0) {
                     alMessage.add(mess);
                     countAdd++;
                     log.add("Info", "Add 1 message from file log.txt");
-                    if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
+                    if (mess.getMessage().length() > MAX_MESSAGE_LENGTH) {
                         log.add("Warning", "Length of this message is more than 140 characters");
                     }
                 }
             }
-        } catch (org.json.simple.parser.ParseException pe) {
+        } catch (org.json.simple.parser.ParseException | IOException pe) {
             System.err.println("Error " + pe.getMessage());
             log.add("Error", "Error " + pe.getMessage());
-        } catch (IOException e){
-            System.err.println("Error " + e.getMessage());
-            log.add("Error", "Error " + e.getMessage());
         }
     }
 
@@ -91,13 +88,11 @@ public class Chat {
             System.out.println("Enter id:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String id = br.readLine();
-            for (Message m : alMessage) {
-                if (m.getId().equals(id)) {
-                    alMessage.remove(m);
-                    log.add("Info", "Message with id " + id + " has been deleted");
-                    countDelete++;
-                }
-            }
+            alMessage.stream().filter(m -> m.getId().equals(id)).forEach(m -> {
+                alMessage.remove(m);
+                log.add("Info", "Message with id " + id + " has been deleted");
+                countDelete++;
+            });
         } catch(IOException e){
             System.err.println("Error " + e.getMessage());
             log.add("Error", "Error " + e.getMessage());
