@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="Style.css">
+        <title>Chat</title>
+    </head>
+    <body>
+        <header class="page-header">
+            <div class="myTitle">
+                <img src="logo_opt.png">
+                <a class="titleChat" href="Homepage.html"><b>Chat</b></a>
+            </div>
+            <p>
+                <div class="login">
+                    <form>
+                        <input class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Введите имя" required>
+                        <input class="myButtonLogin" type="submit" value="Войти" onclick="send()">
+                    </form>
+                </div>
+            </p>
+        </header>
+        <div class="allChat">
+            <div class="chat">
+                <form>
+                    <div class="currentName">
+                        <input class="loggedName" type="text" name="loggedName" size="20" placeholder=" Антон Казак" readonly>
+                        <button class="editNameButton">Изменить</button>
+                        <div class="label labelSuccess">Online</div>
+                    </div>
+                </form>
+                <div class="textBox">
+                    <div class="messageBlock">
+                        <div class="myInfo">29.02.2016 21:08 Антон Казак
+                            <br> <b>Отредактировано.</b> 29.02.2016 21:10
+                        </div>
+                        <div class="myBubble">Привет всем!</div>
+                    </div>
+                    <div class="messageBlock">
+                        <div class="info">29.02.2016 21:08 Иван Кухаренко</div>
+                        <div class="bubble">Ну привет</div>
+                    </div>
+                    <div class="messageBlock">
+                        <div class="info">29.02.2016 21:20 Алексей Афанасенко</div>
+                        <div class="bubble"><b>Сообщение удалено.</b></div>
+                    </div>
+                    <div class="messageBlock">
+                        <div class="info">29.02.2016 21:19 Алексей Афанасенко</div>
+                        <div class="bubble">Привет!</div>
+                    </div>
+                    <div class="messageBlock">
+                        <div class="info">29.02.2016 21:20 Сергей Юркевич</div>
+                        <div class="bubble">((((((((((((((((((((((((((((((((((</div>
+                    </div>
+                </div>
+                <form>
+                    <input class="textMessage" type="text" placeholder=" Введите сообщение">
+                    <input class="myButtonMessage" type="submit" value="Отправить" onclick="send()">
+                    <p class="editButtons">
+                        <button class="deleteButton">Удалить</button>
+                        <button class="editButton">Редактировать</button>
+                        <button class="listMessageButton">История</button>
+                    </p>
+                </form>
+            </div>
+            <div class="usersBox">
+                <ul class="users">
+                    Пользователи онлайн:
+                    <li> Антон Казак</li>
+                    <li> Иван Кухаренко</li>
+                    <li> Сергей Юркевич</li>
+                    <li> Алексей Афанасенко</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
