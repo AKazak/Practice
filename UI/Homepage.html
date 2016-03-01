@@ -2,20 +2,23 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="Style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <title>Chat</title>
     </head>
     <body>
         <header class="page-header">
             <div class="myTitle">
-                <img src="logo_opt.png">
+                <a href="Homepage.html"><img src="logo_opt.png"></a>
                 <a class="titleChat" href="Homepage.html"><b>Chat</b></a>
             </div>
             <p>
                 <div class="login">
                     <form>
-                        <input class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Введите имя" required>
-                        <input class="myButtonLogin" type="submit" value="Войти" onclick="send()">
+                        <input class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Enter your name..." required>
+                        <input class="myButtonLogin" type="submit" value="Login" onclick="send()">
                     </form>
                 </div>
             </p>
@@ -24,52 +27,56 @@
             <div class="chat">
                 <form>
                     <div class="currentName">
-                        <input class="loggedName" type="text" name="loggedName" size="20" placeholder=" Антон Казак" readonly>
-                        <button class="editNameButton">Изменить</button>
+                        <input class="loggedName" type="text" name="loggedName" size="20" placeholder=" Anton Kazak" readonly>
+                        <button class="editNameButton">Edit</button>
                         <div class="label labelSuccess">Online</div>
                     </div>
                 </form>
                 <div class="textBox">
                     <div class="messageBlock">
-                        <div class="myInfo">29.02.2016 21:08 Антон Казак
-                            <br> <b>Отредактировано.</b> 29.02.2016 21:10
+                        <div class="myInfo">29.02.2016 21:08 Anton Kazak
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i></a>
+                            <a href="#"><i class="fa fa-trash-o fa-lg"></i></a>
+                            <br> <b> Edited.</b> 29.02.2016 21:10
                         </div>
                         <div class="myBubble">Привет всем!</div>
                     </div>
                     <div class="messageBlock">
-                        <div class="info">29.02.2016 21:08 Иван Кухаренко</div>
+                        <div class="info">29.02.2016 21:08 Ivan Kuharenko</div>
                         <div class="bubble">Ну привет</div>
                     </div>
                     <div class="messageBlock">
-                        <div class="info">29.02.2016 21:20 Алексей Афанасенко</div>
-                        <div class="bubble"><b>Сообщение удалено.</b></div>
+                        <div class="info">29.02.2016 21:20 Alexey Afanasenko</div>
+                        <div class="bubble"><b> Message has been removed.</b></div>
                     </div>
                     <div class="messageBlock">
-                        <div class="info">29.02.2016 21:19 Алексей Афанасенко</div>
+                        <div class="info">29.02.2016 21:19 Alexey Afanasenko</div>
                         <div class="bubble">Привет!</div>
                     </div>
                     <div class="messageBlock">
-                        <div class="info">29.02.2016 21:20 Сергей Юркевич</div>
+                        <div class="info">29.02.2016 21:20 Sergey Yurkevich</div>
                         <div class="bubble">((((((((((((((((((((((((((((((((((</div>
+                    </div>
+                    <div class="messageBlock">
+                        <div class="myInfo">29.02.2016 21:08 Anton Kazak
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i></a>
+                            <a href="#"><i class="fa fa-trash-o fa-lg"></i></a>
+                        </div>
+                        <div class="myBubble">Как дела?</div>
                     </div>
                 </div>
                 <form>
-                    <input class="textMessage" type="text" placeholder=" Введите сообщение">
-                    <input class="myButtonMessage" type="submit" value="Отправить" onclick="send()">
-                    <p class="editButtons">
-                        <button class="deleteButton">Удалить</button>
-                        <button class="editButton">Редактировать</button>
-                        <button class="listMessageButton">История</button>
-                    </p>
+                    <input class="textMessage" type="text" placeholder=" Enter your message...">
+                    <input class="myButtonMessage" type="submit" value="Send" onclick="send()">
                 </form>
             </div>
             <div class="usersBox">
                 <ul class="users">
-                    Пользователи онлайн:
-                    <li> Антон Казак</li>
-                    <li> Иван Кухаренко</li>
-                    <li> Сергей Юркевич</li>
-                    <li> Алексей Афанасенко</li>
+                    Users online:
+                    <li> Anton Kazak</li>
+                    <li> Ivan Kuharenko</li>
+                    <li> Sergey Yurkevich</li>
+                    <li> Alexey Afanasenko</li>
                 </ul>
             </div>
         </div>

@@ -83,9 +83,8 @@ header.page-header {
     color: white;
     border-radius: 10px;
     font-size: 20px;
-    width: 50%;
     position: absolute;
-    left: 50%;
+    right: 0px;
     top: 20px;
 }
 
@@ -150,7 +149,7 @@ header.page-header {
     background-color: #777777;
     border-radius: 4px;
     border: 2px solid black;
-    height: 24px;
+    height: 44px;
     width: auto;
 
 }
@@ -161,7 +160,7 @@ header.page-header {
     background-color: #4b4b4b;
     border-radius: 4px;
     border: 2px solid black;
-    height: 30px;
+    height: 50px;
     width: 10%;
 }
 
@@ -209,57 +208,6 @@ header.page-header {
     border: 2px solid black;
 }
 
-.deleteButton {
-    color: white;
-    height: 50px;
-    cursor: pointer;
-    width: 32%;
-    background-color: #4b4b4b;
-    border-radius: 4px;
-    border: 2px solid black;
-}
-
-.deleteButton:active {
-    color: rgb(250, 250, 250);
-    border: 1px solid rgb(86, 86, 86);
-    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
-}
-
-.editButton {
-    color: white;
-    height: 50px;
-    cursor: pointer;
-    width: 34%;
-    background-color: #4b4b4b;
-    border-radius: 4px;
-    border: 2px solid black;
-}
-
-.editButton:active {
-    color: rgb(250, 250, 250);
-    border: 1px solid rgb(86, 86, 86);
-    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
-}
-
-.listMessageButton {
-    color: white;
-    height: 50px;
-    cursor: pointer;
-    width: 32%;
-    background-color: #4b4b4b;
-    border-radius: 4px;
-    border: 2px solid black;
-}
-
-.listMessageButton:active {
-    color: rgb(250, 250, 250);
-    border: 1px solid rgb(86, 86, 86);
-    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
-}
-
 .usersBox {
     float: right;
     color: white;
@@ -271,12 +219,16 @@ header.page-header {
     margin-top: 20px;
 }
 
+.loggedName, .textLogin, .myButtonLogin {
+    width: auto;
+}
+
 @media screen and (max-width: 992px) {
     .chat {
         border-radius: 4px;
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 80px);
         left: 0;
         margin-top: 10px;
         -webkit-box-sizing: border-box;
@@ -284,26 +236,12 @@ header.page-header {
         box-sizing: border-box;
     }
 
-    .bubble, .myBubble {
-        max-width: 90%;
-    }
-
-    .myButtonMessage, .deleteButton, .editButton, .listMessageButton {
-        height: 60px;
-    }
-
-    .deleteButton, .listMessageButton {
-        height: 60px;
-        width: 32%;
-    }
-
-    .loggedName, .textLogin, .myButtonLogin {
+    .myButtonLogin, .textLogin {
         width: auto;
     }
 
-    .editNameButton {
-        width: 34%;
-        height: 60px;
+    .bubble, .myBubble {
+        max-width: 90%;
     }
 
     .textMessage {
@@ -311,52 +249,29 @@ header.page-header {
     }
 
     .myButtonMessage {
-        height: 60px;
         width: 32%;
     }
 
-    .loggedName, .textMessage {
-        height: 55px;
-    }
-
     .textBox {
-        height: 80%;
+        height: calc(100% - 100px);
         width: 100%;
     }
 
     .usersBox {
         display: none;
     }
+
+    .titleChat {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 670px) {
-    .textLogin {
-        width: 50%;
-    }
-
-    .myButtonLogin {
-        width: 30%;
-    }
-
     .editNameButton {
-        width: auto;
-    }
-
-    .deleteButton, .listMessageButton {
-        width: 31%;
+        width: 25%;
     }
 
     .textMessage {
         width: 65%;
-    }
-}
-
-@media screen and (max-width: 353px) {
-    .textLogin {
-        width: 40%;
-    }
-
-    .myButtonLogin {
-        width: 25%;
     }
 }
