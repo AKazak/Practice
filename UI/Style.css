@@ -7,7 +7,6 @@ body {
 }
 
 header.page-header {
-    max-height: 20px;
     padding: 20px;
     font-size: 20px;
     color: #14304e;
@@ -84,7 +83,7 @@ header.page-header {
     border-radius: 10px;
     font-size: 20px;
     position: absolute;
-    right: 0px;
+    right: 0;
     top: 20px;
 }
 
@@ -97,6 +96,7 @@ header.page-header {
     background-color: #777777;
     border-radius: 4px;
     border: 2px solid black;
+    display: inline;
 }
 
 .myButtonLogin {
@@ -140,18 +140,19 @@ header.page-header {
     position: absolute;
     width: 79%;
     height: 85%;
-    left: 0;
-    margin-top: 10px;
 }
 
 .loggedName {
     color: white;
+    text-align: center;
+    padding: 13px;
+    float: left;
+    height: 20px;
+    width: 15%;
     background-color: #777777;
     border-radius: 4px;
     border: 2px solid black;
-    height: 44px;
-    width: auto;
-
+    display: none;
 }
 
 .editNameButton {
@@ -162,6 +163,7 @@ header.page-header {
     border: 2px solid black;
     height: 50px;
     width: 10%;
+    display: none;
 }
 
 .editNameButton:active {
@@ -175,7 +177,7 @@ header.page-header {
     color: white;
     height: 44px;
     cursor: text;
-    width: 79%;
+    width: 81%;
     background-color: #777777;
     border-radius: 4px;
     border: 2px solid black;
@@ -184,8 +186,9 @@ header.page-header {
 .myButtonMessage {
     color: white;
     height: 50px;
+    float: right;
     cursor: pointer;
-    width: 19%;
+    width: 18.5%;
     background-color: #4b4b4b;
     border-radius: 4px;
     border: 2px solid black;
@@ -202,7 +205,7 @@ header.page-header {
     overflow: auto;
     color: white;
     height: 80%;
-    width: 98%;
+    width: 100%;
     background-color: #777777;
     border-radius: 4px;
     border: 2px solid black;
@@ -216,27 +219,43 @@ header.page-header {
     background-color: #4b4b4b;
     border-radius: 4px;
     border: 2px solid black;
-    margin-top: 20px;
+
 }
 
-.loggedName, .textLogin, .myButtonLogin {
+.textLogin, .myButtonLogin {
     width: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 5px 5px 6px #777777;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 5px 5px 6px rgba(0,0,0,0.5);
+}
+
+.deleted {
+    opacity: 0.5;
 }
 
 @media screen and (max-width: 992px) {
     .chat {
         border-radius: 4px;
-        position: absolute;
+        float: left;
         width: 100%;
-        height: calc(100% - 80px);
-        left: 0;
-        margin-top: 10px;
+        height: calc(100% - 62px);
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
 
-    .myButtonLogin, .textLogin {
+    .loggedName, .myButtonLogin, .textLogin {
         width: auto;
     }
 
@@ -245,15 +264,16 @@ header.page-header {
     }
 
     .textMessage {
-        width: 66%;
+        width: 68%;
     }
 
     .myButtonMessage {
-        width: 32%;
+        float: right;
+        width: 31%;
     }
 
     .textBox {
-        height: calc(100% - 100px);
+        height: calc(100% - 103px);
         width: 100%;
     }
 

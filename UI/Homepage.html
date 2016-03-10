@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="Style.css">
+        <link rel="stylesheet" href="sweetalert.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <title>Chat</title>
     </head>
@@ -16,27 +17,27 @@
             </div>
             <p>
                 <div class="login">
-                    <form>
-                        <input class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Enter your name..." required>
-                        <input class="myButtonLogin" type="submit" value="Login" onclick="send()">
+                    <form id="login-form">
+                        <input id="login" class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Enter your name..." required>
+                        <button id="logger" class="myButtonLogin" type="submit">Login</button>
                     </form>
                 </div>
             </p>
         </header>
         <div class="allChat">
             <div class="chat">
-                <form>
+                <form id="loggedName-form">
                     <div class="currentName">
-                        <input class="loggedName" type="text" name="loggedName" size="20" placeholder=" Anton Kazak" readonly>
-                        <button class="editNameButton">Edit</button>
-                        <div class="label labelSuccess">Online</div>
+                        <div id="user" class="loggedName"></div>
+                        <button id="editLogin" class="editNameButton" type="reset" onclick="editName()">Edit</button>
+                        <div class="label labelWarning">Offline</div>
                     </div>
                 </form>
-                <div class="textBox">
+                <div class="textBox" id="textBox">
                     <div class="messageBlock">
                         <div class="myInfo">29.02.2016 21:08 Anton Kazak
-                            <a href="#"><i class="fa fa-pencil fa-fw"></i></a>
-                            <a href="#"><i class="fa fa-trash-o fa-lg"></i></a>
+                            <a href="#" class="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            <a href="#" class="delete"><i class="fa fa-trash-o fa-lg"></i></a>
                             <br> <b> Edited.</b> 29.02.2016 21:10
                         </div>
                         <div class="myBubble">Привет всем!</div>
@@ -59,26 +60,29 @@
                     </div>
                     <div class="messageBlock">
                         <div class="myInfo">29.02.2016 21:08 Anton Kazak
-                            <a href="#"><i class="fa fa-pencil fa-fw"></i></a>
-                            <a href="#"><i class="fa fa-trash-o fa-lg"></i></a>
+                            <a href="#" class="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            <a href="#" class="delete"><i class="fa fa-trash-o fa-lg"></i></a>
                         </div>
                         <div class="myBubble">Как дела?</div>
                     </div>
                 </div>
-                <form>
-                    <input class="textMessage" type="text" placeholder=" Enter your message...">
-                    <input class="myButtonMessage" type="submit" value="Send" onclick="send()">
+                <form id="message-form">
+                    <input id="message" class="textMessage" type="text" placeholder=" Enter your message..." required>
+                    <button class="myButtonMessage" type="submit">Send</button>
                 </form>
             </div>
             <div class="usersBox">
                 <ul class="users">
                     Users online:
-                    <li> Anton Kazak</li>
+                    <li><span id="me"> Anton Kazak</span></li>
                     <li> Ivan Kuharenko</li>
                     <li> Sergey Yurkevich</li>
                     <li> Alexey Afanasenko</li>
                 </ul>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+        <script src="scripts.js"></script>
+        <script src="sweetalert.js"></script>
     </body>
 </html>
