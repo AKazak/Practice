@@ -1,5 +1,16 @@
 var author = "Guest";
-var textBox = $('#textBox');
+var textBox = document.getElementById('textBox');
+
+function run(){
+    var buttonSend = document.getElementById('messageSend');
+    buttonSend.addEventListener('click', send);
+
+    var buttonLogin = document.getElementById('logger');
+    buttonLogin.addEventListener('click', login);
+
+    var appContainer = document.getElementsByClassName('textBox')[0];
+    appContainer.addEventListener('click', delegateEvent);
+}
 
 function getText(el) {
     var pre = document.createElement('pre');
@@ -8,26 +19,40 @@ function getText(el) {
     return pre.innerHTML;
 }
 
-function send() {
-    var message = '<div class="myBubble">' + getText($('#message').val()) + '</div>';
-    var date = new Date();
-    var authorInfo = '<div class="myInfo">' + date.toLocaleString() + ' ' + author + ' ' +
-        '<a href="#" class="edit"><i class="fa fa-pencil fa-fw"></i></a>' +
-        '<a href="#" class="delete"><i class="fa fa-trash-o fa-lg"></i></a>' + '</div>';
-    $('#message').val("");
-    $('#textBox').append(
-        '<div class="messageBlock">' + authorInfo + message + '</div>'
-    );
-    textBox.scrollTop(textBox[0].scrollHeight);
+function send(e) {
+    e.preventDefault();
+    var messageInput = document.getElementById('message');
+    if(messageInput.value === "") {
+        return false;
+    } else {
+        var text = getText(messageInput.value);
+        var message = '<div class="myBubble">' + text + '</div>';
+        var date = new Date();
+        var authorInfo = '<div class="myInfo">' + date.toLocaleString() + ' ' + author + ' ' +
+            '<a href="#"><i class="fa fa-pencil fa-fw edit"></i></a>' +
+            '<a href="#"><i class="fa fa-trash-o fa-lg delete"></i></a>' + '</div>';
+        messageInput.value = "";
+        var messageBox = document.createElement('div');
+        messageBox.classList.add("messageBlock");
+        messageBox.innerHTML = authorInfo + message;
+        textBox.appendChild(messageBox);
+        messageBox.scrollIntoView();
+    }
 }
 
-function logName() {
-    var name = getText($('#login').val());
-    $('#login').val("");
-    author = name;
-    $('#user').html(author);
-    $('#me').html(author);
-    $('#login-form').hide();
+function login(e) {
+    e.preventDefault();
+    var login = document.getElementById('login');
+    author = getText(login.value);
+    login.value = "";
+    var user = document.getElementById('user');
+    user.innerHTML = author;
+    var me = document.getElementById('me');
+    me.innerHTML = author;
+    var loginBox = document.getElementById('login-form');
+    loginBox.style.display = "none";
+    var logInfo = document.getElementById('logInfo');
+    logInfo.style.display = "inline";
 }
 
 function editName() {
@@ -50,80 +75,80 @@ function editName() {
             return false
         }
         author = inputValue;
-        $('#user').html(author);
-        $('#me').html(author);
+        var user = document.getElementById('user');
+        user.innerHTML = author;
+        var me = document.getElementById('me');
+        me.innerHTML = author;
         swal("Nice!", "Your new name: " + inputValue, "success");
     });
 }
 
-$(function () {
-    $('#message-form').submit(function (el) {
-        el.preventDefault();
-        send();
-    });
+function delegateEvent(evtObj) {
+    console.log("asd");
+    console.log(evtObj.target);
+    if(evtObj.type === 'click' && evtObj.target.classList.contains('delete')){
+        var messageBlock = evtObj.target.parentNode.parentNode.parentNode;
+        deleteMessage(messageBlock);
+    } else if(evtObj.type === 'click' && evtObj.target.classList.contains('edit')){
+        var messageBlock = evtObj.target.parentNode.parentNode.parentNode;
+        editMessage(messageBlock);
+    }
+}
 
-    $('#login-form').submit(function (el) {
-        el.preventDefault();
-        logName();
-        $('.loggedName').show();
-        $('.editNameButton').show();
+function deleteMessage(messageBlock) {
+    var message = messageBlock.lastElementChild;
+    var iconEdit = messageBlock.firstElementChild.firstElementChild;
+    var iconDelete = iconEdit.nextElementSibling;
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this message!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#E97D33",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel plx!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+            iconEdit.remove();
+            iconDelete.remove();
+            message.innerHTML = "This message has been deleted.";
+            message.classList.add("deleted");
+            swal("Deleted!", "Your message has been deleted.", "success");
+        } else {
+            swal("Cancelled", "Your message is safe :)", "error");
+        }
     });
+}
 
-    $(document).on('click', '.edit', function () {
-        var myMessage = $(this).parent();
-        var message = myMessage.next();
-        var messageText = message.html();
-        swal({
-            title: "An input!",
-            text: "Write something interesting:",
-            type: "input",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            animation: "pop",
-            inputPlaceholder: "Enter your message..."
-        }, function (inputValue) {
-            if (inputValue === false) return false;
-            if (inputValue === "") {
-                swal.showInputError("You need to write something!");
-                return false
-            }
-            if (inputValue === messageText) {
-                swal.close();
-                return false;
-            }
-            message.html(getText(inputValue));
-            var myInfo = myMessage.children();
-            var editInfo = "Edited  " + new Date().toLocaleString();
-            myInfo.parent().append('<div>' + editInfo + '</div>');
+function editMessage(messageBlock) {
+    var message = messageBlock.lastElementChild;
+    var messageText = message.innerHTML;
+    swal({
+        title: "An input!",
+        text: "Write something interesting:",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        animation: "pop",
+        inputPlaceholder: "Enter your message..."
+    }, function (inputValue) {
+        if (inputValue === false) return false;
+        if (inputValue === "") {
+            swal.showInputError("You need to write something!");
+            return false
+        }
+        if (inputValue === messageText) {
             swal.close();
-        });
+            return false;
+        }
+        message.innerHTML = getText(inputValue);
+        var myInfo = messageBlock.firstElementChild;
+        var info = document.createElement('div');
+        var editInfo = "Edited  " + new Date().toLocaleString();
+        info.innerHTML = editInfo;
+        myInfo.appendChild(info);
+        swal.close();
     });
-
-    $(document).on('click', '.delete', function () {
-        var message = $(this).parent().next();
-        var iconEdit = $(this).prev();
-        var iconDel = $(this);
-        swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this message!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#E97D33",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel plx!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
-                iconEdit.remove();
-                iconDel.remove();
-                message.html("This message has been deleted.");
-                message.addClass("deleted");
-                swal("Deleted!", "Your message has been deleted.", "success");
-            } else {
-                swal("Cancelled", "Your message is safe :)", "error");
-            }
-        });
-    });
-
-});
+}
