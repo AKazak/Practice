@@ -1,10 +1,16 @@
 package up1;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class CleanCode2 {
     public static void main(String []args){
         try{
+            StringBuilder addTofile = new StringBuilder();
+            addTofile.append("[");
+            PrintStream ps = new PrintStream(new FileOutputStream("output.txt"));
             Chat chat = new Chat();
             boolean flag = true;
             int menuCount;
@@ -46,11 +52,11 @@ public class CleanCode2 {
                         break;
                     }
                     case 5:{
-                        chat.historyPeriod();
+                        chat.showHistoryPeriod();
                         break;
                     }
                     case 6:{
-                        chat.addToFile();
+                        chat.addToFile(addTofile);
                         break;
                     }
                     case 7:{
@@ -68,6 +74,13 @@ public class CleanCode2 {
                     case 0:{
                         flag = false;
                         chat.logAdd();
+                        if(addTofile.length() > 1){
+                            addTofile.deleteCharAt(addTofile.lastIndexOf(","));
+                            addTofile.append("]");
+                            ps.print(addTofile);
+                        }
+                        ps.close();
+                        menuScanner.close();
                         break;
                     }
                     default:{
@@ -79,6 +92,8 @@ public class CleanCode2 {
             while(flag);
         } catch(NumberFormatException nfe){
             System.err.println("Invalid input");
+        } catch (FileNotFoundException fnfe){
+            System.err.println("File not found");
         }
     }
 }

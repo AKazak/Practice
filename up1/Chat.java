@@ -10,15 +10,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Chat {
-    private List<Message> alMessage;
-    private Singleton log = Singleton.instance;
+    public final int MAX_MESSAGE_LENGTH = 140;
+    private List<Message> messages;
+    private Logger log = Logger.instance;
     private int countAdd;
     private int countDelete;
     private int countFind;
-    public final int MAX_MESSAGE_LENGTH = 140;
 
     Chat(){
-        alMessage = new ArrayList<>();
+        messages = new ArrayList<>();
         countAdd = 0;
         countDelete = 0;
         countFind = 0;
@@ -31,10 +31,9 @@ public class Chat {
             String author = br.readLine();
             System.out.println("Enter message:");
             String message = br.readLine();
-            Date date = new Date();
-            String timestamp = ((Long)date.getTime()).toString();
+            long timestamp = System.currentTimeMillis();
             Message mess = new Message(author, message, timestamp);
-            alMessage.add(mess);
+            messages.add(mess);
             countAdd++;
             log.add("Info", "Message from " + mess.getAuthor() + " added");
             if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
@@ -61,15 +60,15 @@ public class Chat {
                 String id = jsonObject.get("id").toString();
                 String author = jsonObject.get("author").toString();
                 String message = jsonObject.get("message").toString();
-                String timestamp = jsonObject.get("timestamp").toString();
+                long timestamp = (long)jsonObject.get("timestamp");
                 Message mess = new Message(id, author, message, timestamp);
-                for (Message m : alMessage) {
+                for (Message m : messages) {
                     if (m.getId().equals(mess.getId())) {
                         j = 1;
                     }
                 }
                 if (j == 0) {
-                    alMessage.add(mess);
+                    messages.add(mess);
                     countAdd++;
                     log.add("Info", "Add 1 message from file log.txt");
                     if (mess.getMessage().length() > MAX_MESSAGE_LENGTH) {
@@ -88,8 +87,8 @@ public class Chat {
             System.out.println("Enter id:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String id = br.readLine();
-            alMessage.stream().filter(m -> m.getId().equals(id)).forEach(m -> {
-                alMessage.remove(m);
+            messages.stream().filter(m -> m.getId().equals(id)).forEach(m -> {
+                messages.remove(m);
                 log.add("Info", "Message with id " + id + " has been deleted");
                 countDelete++;
             });
@@ -99,19 +98,18 @@ public class Chat {
         }
     }
 
-    public void addToFile(){
+    public void addToFile(StringBuilder sb){
         try{
-            PrintStream ps = new PrintStream(new FileOutputStream("output.txt", true));
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter author:");
             String author = br.readLine();
             System.out.println("Enter message:");
             String message = br.readLine();
-            Date date = new Date();
-            String timestamp = ((Long)date.getTime()).toString();
+            long timestamp = System.currentTimeMillis();
             Message mess = new Message(author, message, timestamp);
-            alMessage.add(mess);
-            ps.println(mess.toJSON());
+            messages.add(mess);
+            sb.append(mess.toJSON());
+            sb.append(",");
             countAdd++;
             log.add("Info", "Message to file output.txt from " + mess.getAuthor() + " added");
             if(mess.getMessage().length() > MAX_MESSAGE_LENGTH ){
@@ -124,14 +122,14 @@ public class Chat {
     }
 
     public void sort(){
-        Collections.sort(alMessage, new MyComparator());
+        Collections.sort(messages, (msg1, msg2) -> Long.compare(msg1.getTimestamp(),msg2.getTimestamp()));
     }
 
     public boolean isEmpty(){
-        return alMessage.isEmpty();
+        return messages.isEmpty();
     }
 
-    public void historyPeriod(){
+    public void showHistoryPeriod(){
         try{
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             boolean flag = true;
@@ -153,8 +151,8 @@ public class Chat {
                     Calendar calendar2 = new GregorianCalendar(year2, month2 - 1, day2);
                     Calendar calendar = new GregorianCalendar();
                     boolean flag1 = false;
-                    for(Message m: alMessage){
-                        calendar.setTimeInMillis(Long.parseLong(m.getTimestamp()));
+                    for(Message m: messages){
+                        calendar.setTimeInMillis(m.getTimestamp());
                         if(calendar.after(calendar1)){
                             if(calendar.before(calendar2) || calendar.equals(calendar2)){
                                 System.out.println(m);
@@ -165,8 +163,8 @@ public class Chat {
                         }
                     }
                     if(!flag1){
-                        System.out.println("There is no such messages");
-                        log.add("Info", "There is no such messages in period " + str);
+                        System.out.println("There is no such message");
+                        log.add("Info", "There is no such message in period " + str);
                     }
                     flag = false;
                 }
@@ -183,7 +181,7 @@ public class Chat {
             System.out.println("Enter author:");
             String author = br.readLine();
             boolean flag = false;
-            for(Message m: alMessage){
+            for(Message m: messages){
                 if(m.getAuthor().equals(author)){
                     System.out.println(m);
                     countFind++;
@@ -192,8 +190,8 @@ public class Chat {
                 }
             }
             if(!flag){
-                System.out.println("There is no such messages");
-                log.add("Info", "There is no such messages with author " + author);
+                System.out.println("There is no such message");
+                log.add("Info", "There is no such message with author " + author);
             }
         } catch(IOException e){
             System.err.println("Error" + e.getMessage());
@@ -207,7 +205,7 @@ public class Chat {
             System.out.println("Enter word:");
             String word = br.readLine();
             boolean flag = false;
-            for(Message m: alMessage){
+            for(Message m: messages){
                 if(m.getMessage().contains(word)){
                     System.out.println(m);
                     countFind++;
@@ -215,8 +213,8 @@ public class Chat {
                 }
             }
             if(!flag){
-                System.out.println("There is no such messages");
-                log.add("Info", "There is no messages with word " + word);
+                System.out.println("There is no such message");
+                log.add("Info", "There is no message with word " + word);
             }
         } catch(IOException e){
             System.err.println("Error" + e.getMessage());
@@ -232,7 +230,7 @@ public class Chat {
             Pattern pattern = Pattern.compile(regular);
             Matcher matcher;
             boolean flag = false;
-            for(Message m: alMessage){
+            for(Message m: messages){
                 matcher = pattern.matcher(m.getMessage());
                 if(matcher.matches()){
                     System.out.println(m);
@@ -242,7 +240,7 @@ public class Chat {
                 }
             }
             if(!flag){
-                System.out.println("There is no such messages");
+                System.out.println("There is no such message");
                 log.add("Info", "There is no such message in the regular expression " + regular);
             }
         } catch(IOException e){
@@ -258,7 +256,7 @@ public class Chat {
     }
 
     public void print(){
-        for(Message m: alMessage){
+        for(Message m: messages){
             System.out.println(m.toString());
         }
     }

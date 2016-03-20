@@ -11,16 +11,16 @@ public class Message {
     private String id;
     private String message;
     private String author;
-    private String timestamp;
+    private long timestamp;
 
-    Message(String author, String message, String timestamp){
+    Message(String author, String message, long timestamp){
         this.message = message;
         this.author = author;
         id = UUID.randomUUID().toString();
         this.timestamp = timestamp;
     }
 
-    Message(String id, String author, String message, String timestamp){
+    Message(String id, String author, String message, long timestamp){
         this.message = message;
         this.author = author;
         this.id = id;
@@ -39,7 +39,7 @@ public class Message {
         return author;
     }
 
-    public String getTimestamp(){
+    public long getTimestamp(){
         return timestamp;
     }
 
@@ -55,7 +55,7 @@ public class Message {
     @Override
     public String toString() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(Long.parseLong(this.getTimestamp()) + 3600000);
+        calendar.setTimeInMillis(this.getTimestamp() + 3600000);
         Date date = calendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy ',' HH:mm:ss");
         String strDate = sdf.format(date);

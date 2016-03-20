@@ -3,10 +3,10 @@ package up1;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Singleton {
-    public static Singleton instance = new Singleton("logfile.txt");
+public class Logger {
+    public static Logger instance = new Logger("logfile.txt");
     private FileWriter logfile;
-    Singleton(String file){
+    Logger(String file){
         try{
             logfile = new FileWriter(file);
         }
