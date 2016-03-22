@@ -1,13 +1,12 @@
 package up1;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Scanner;
 
 public class CleanCode2 {
     public static void main(String []args){
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             StringBuilder addTofile = new StringBuilder();
             addTofile.append("[");
             PrintStream ps = new PrintStream(new FileOutputStream("output.txt"));
@@ -30,15 +29,15 @@ public class CleanCode2 {
                 menuCount = Integer.parseInt(menuScanner.next());
                 switch(menuCount){
                     case 1:{
-                        chat.addMessage();
+                        chat.addMessage(br);
                         break;
                     }
                     case 2:{
-                        chat.addFromFile();
+                        chat.addFromFile(br);
                         break;
                     }
                     case 3:{
-                        chat.deleteMessage();
+                        chat.deleteMessage(br);
                         break;
                     }
                     case 4:{
@@ -52,23 +51,23 @@ public class CleanCode2 {
                         break;
                     }
                     case 5:{
-                        chat.showHistoryPeriod();
+                        chat.showHistoryPeriod(br);
                         break;
                     }
                     case 6:{
-                        chat.addToFile(addTofile);
+                        chat.addToFile(addTofile, br);
                         break;
                     }
                     case 7:{
-                        chat.searchAuthor();
+                        chat.searchAuthor(br);
                         break;
                     }
                     case 8:{
-                        chat.searchWord();
+                        chat.searchWord(br);
                         break;
                     }
                     case 9:{
-                        chat.searchRegular();
+                        chat.searchRegular(br);
                         break;
                     }
                     case 0:{
@@ -80,6 +79,7 @@ public class CleanCode2 {
                             ps.print(addTofile);
                         }
                         ps.close();
+                        br.close();
                         menuScanner.close();
                         break;
                     }
@@ -94,6 +94,8 @@ public class CleanCode2 {
             System.err.println("Invalid input");
         } catch (FileNotFoundException fnfe){
             System.err.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

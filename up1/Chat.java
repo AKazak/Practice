@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class Chat {
     public final int MAX_MESSAGE_LENGTH = 140;
     private List<Message> messages;
-    private Logger log = Logger.instance;
+    private Logger log = Logger.getInstance();
     private int countAdd;
     private int countDelete;
     private int countFind;
@@ -24,9 +24,8 @@ public class Chat {
         countFind = 0;
     }
 
-    public void addMessage(){
+    public void addMessage(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter author:");
             String author = br.readLine();
             System.out.println("Enter message:");
@@ -45,9 +44,8 @@ public class Chat {
         }
     }
 
-    public void addFromFile(){
+    public void addFromFile(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("log.txt"));
             String infFromFile = br.readLine();
             JSONParser parser = new JSONParser();
             JSONObject jsonObject;
@@ -82,10 +80,9 @@ public class Chat {
         }
     }
 
-    public void deleteMessage(){
+    public void deleteMessage(BufferedReader br){
         try {
             System.out.println("Enter id:");
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String id = br.readLine();
             messages.stream().filter(m -> m.getId().equals(id)).forEach(m -> {
                 messages.remove(m);
@@ -98,9 +95,8 @@ public class Chat {
         }
     }
 
-    public void addToFile(StringBuilder sb){
+    public void addToFile(StringBuilder sb, BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter author:");
             String author = br.readLine();
             System.out.println("Enter message:");
@@ -129,9 +125,8 @@ public class Chat {
         return messages.isEmpty();
     }
 
-    public void showHistoryPeriod(){
+    public void showHistoryPeriod(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             boolean flag = true;
             while(flag){
                 System.out.println("Enter period(Example: 21.08.1997-27.08.1997):");
@@ -175,9 +170,8 @@ public class Chat {
         }
     }
 
-    public void searchAuthor(){
+    public void searchAuthor(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter author:");
             String author = br.readLine();
             boolean flag = false;
@@ -199,9 +193,8 @@ public class Chat {
         }
     }
 
-    public void searchWord(){
+    public void searchWord(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter word:");
             String word = br.readLine();
             boolean flag = false;
@@ -222,9 +215,8 @@ public class Chat {
         }
     }
 
-    public void searchRegular(){
+    public void searchRegular(BufferedReader br){
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter regular expression(Example: ^[0-9]{6}$ ):");
             String regular = br.readLine();
             Pattern pattern = Pattern.compile(regular);
