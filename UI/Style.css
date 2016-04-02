@@ -134,6 +134,10 @@ header.page-header {
     border: 2px solid black;
 }
 
+.editInfo {
+    text-align: right;
+}
+
 .chat {
     float: left;
     border-radius: 4px;

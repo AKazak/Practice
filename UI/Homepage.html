@@ -1,90 +1,77 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="Style.css">
-        <link rel="stylesheet" href="sweetalert.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <title>Chat</title>
-    </head>
-    <body onload="run()">
-        <header class="page-header">
-            <div class="myTitle">
-                <a href="Homepage.html"><img src="logo_opt.png"></a>
-                <a class="titleChat" href="Homepage.html"><b>Chat</b></a>
-            </div>
-            <p>
-                <div class="login">
-                    <form id="login-form">
-                        <input id="login" class="textLogin" type="text" name="nickname" maxlength="20" placeholder=" Enter your name..." required>
-                        <button id="logger" class="myButtonLogin" type="submit">Login</button>
-                    </form>
-                </div>
-            </p>
-        </header>
-        <div class="allChat">
-            <div class="chat">
-                <form id="loggedName-form">
-                    <div class="currentName">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="sweetalert.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Chat</title>
+</head>
+<body onload="run()">
+<header class="page-header">
+    <div class="myTitle">
+        <a href="Homepage.html"><img src="logo_opt.png"></a>
+        <a class="titleChat" href="Homepage.html"><b>Chat</b></a>
+    </div>
+    <p>
+    <div class="login">
+        <form id="login-form">
+            <input id="login" class="textLogin" type="text" name="nickname" maxlength="20"
+                   placeholder=" Enter your name..." required>
+            <button id="logger" class="myButtonLogin" type="submit">Login</button>
+        </form>
+    </div>
+    </p>
+</header>
+<div class="allChat">
+    <div class="chat">
+        <form id="loggedName-form">
+            <div class="currentName">
                         <span class="logged" id="logInfo">
                             <div id="user" class="loggedName"></div>
-                            <button id="editLogin" class="editNameButton" type="reset" onclick="editName()">Edit</button>
+                            <button id="editLogin" class="editNameButton" type="reset" onclick="editName()">Edit
+                            </button>
                         </span>
-                        <div class="label labelWarning">Offline</div>
-                    </div>
-                </form>
-                <div class="textBox" id="textBox">
-                    <div class="messageBlock">
-                        <div class="myInfo">29.02.2016 21:08 Anton Kazak
-                            <a href="#"><i class="fa fa-pencil fa-fw edit"></i></a>
-                            <a href="#"><i class="fa fa-trash-o fa-lg delete"></i></a>
-                            <br> <b> Edited.</b> 29.02.2016 21:10
-                        </div>
-                        <div class="myBubble">Привет всем!</div>
-                    </div>
-                    <div class="messageBlock">
-                        <div class="info">29.02.2016 21:08 Ivan Kuharenko</div>
-                        <div class="bubble">Ну привет</div>
-                    </div>
-                    <div class="messageBlock">
-                        <div class="info">29.02.2016 21:20 Alexey Afanasenko</div>
-                        <div class="bubble"><b> Message has been removed.</b></div>
-                    </div>
-                    <div class="messageBlock">
-                        <div class="info">29.02.2016 21:19 Alexey Afanasenko</div>
-                        <div class="bubble">Привет!</div>
-                    </div>
-                    <div class="messageBlock">
-                        <div class="info">29.02.2016 21:20 Sergey Yurkevich</div>
-                        <div class="bubble">((((((((((((((((((((((((((((((((((</div>
-                    </div>
-                    <div class="messageBlock">
-                        <div class="myInfo">29.02.2016 21:08 Anton Kazak
-                            <a href="#"><i class="fa fa-pencil fa-fw edit"></i></a>
-                            <a href="#"><i class="fa fa-trash-o fa-lg delete"></i></a>
-                        </div>
-                        <div class="myBubble">Как дела?</div>
-                    </div>
-                </div>
-                <form id="message-form">
-                    <input id="message" class="textMessage" type="text" placeholder=" Enter your message..." required>
-                    <button class="myButtonMessage" id="messageSend" type="submit">Send</button>
-                </form>
+                <div class="label labelWarning">Offline</div>
             </div>
-            <div class="usersBox">
-                <ul class="users">
-                    Users online:
-                    <li><span id="me"> Guest</span></li>
-                    <li> Ivan Kuharenko</li>
-                    <li> Sergey Yurkevich</li>
-                    <li> Alexey Afanasenko</li>
-                </ul>
-            </div>
+        </form>
+        <div class="textBox" id="textBox">
         </div>
-        <!--<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>-->
-        <script src="scripts.js"></script>
-        <script src="sweetalert.js"></script>
-    </body>
+        <form id="message-form">
+            <input id="message" class="textMessage" type="text" placeholder=" Enter your message..." required>
+            <button class="myButtonMessage" id="messageSend" type="submit">Send</button>
+        </form>
+    </div>
+    <div class="usersBox">
+        <ul class="users">
+            Users online:
+            <li><span id="me"> Guest</span></li>
+        </ul>
+    </div>
+</div>
+
+<div style="display:none" id="my-message-template">
+    <div class="messageBlock" data-message-id="id">
+        <div class="myInfo">
+            Author, Time
+        </div>
+        <div class="editInfo"></div>
+        <div class="myBubble">Message</div>
+    </div>
+</div>
+
+<div style="display: none" id="others-message-template">
+    <div class="messageBlock" data-message-id="id">
+        <div class="info">Author, Time</div>
+        <div class="editInfo"></div>
+        <div class="bubble">Message</div>
+    </div>
+</div>
+
+<script src="scripts.js"></script>
+<script src="sweetalert.js"></script>
+
+</body>
 </html>
