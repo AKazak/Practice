@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 
 public class FileLogger implements Logger {
 
-    String logFile;
+    private String logFile;
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("M/d/yyyy HH:mm:ss");
 
     public FileLogger(String logFile){

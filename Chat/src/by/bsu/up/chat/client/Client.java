@@ -20,7 +20,7 @@ public class Client {
     public static final long POLLING_PERIOD_MILLIS = 1000L;
 
     private static final Logger logger = Log.create(Client.class);
-    private static final Logger ClientLogger = new FileLogger("clientlogger.txt");
+    private static final Logger clientLogger = new FileLogger("clientlogger.txt");
 
     private List<String> localHistory = new ArrayList<String>();
 
@@ -127,25 +127,25 @@ public class Client {
     }
 
     public List<String> getMessages() {
-        ClientLogger.info("Began receiving messages");
+        clientLogger.info("Began receiving messages");
         checkConnected();
         List<String> list = new ArrayList<>();
         HttpURLConnection incomeConnection = null;
         try {
 
-            ClientLogger.info("Send request for receiving messages");
+            clientLogger.info("Send request for receiving messages");
             String query = String.format("%s?%s=%s", Constants.CONTEXT_PATH, Constants.REQUEST_PARAM_TOKEN, MessageHelper.buildToken(localHistory.size()));
             URL url = new URL(Constants.PROTOCOL, host, port, query);
             incomeConnection = prepareInputConnection(url);
 
-            ClientLogger.info("Response is received");
+            clientLogger.info("Response is received");
             String response = MessageHelper.inputStreamToString(incomeConnection.getInputStream());
             JSONObject jsonObject = MessageHelper.stringToJsonObject(response);
             JSONArray jsonArray = (JSONArray) jsonObject.get("messages");
-            ClientLogger.info("Received " + jsonArray.size() + " messages");
+            clientLogger.info("Received " + jsonArray.size() + " messages");
             for (Object o : jsonArray) {
                 logger.info(String.format("Message from server: %s", o));
-                ClientLogger.info(String.format("Message from server: %s", o));
+                clientLogger.info(String.format("Message from server: %s", o));
                 list.add(o.toString());
             }
 
@@ -158,21 +158,21 @@ public class Client {
 
         } catch (ParseException e) {
             logger.error("Could not parse message", e);
-            ClientLogger.error("Could not parse message", e);
+            clientLogger.error("Could not parse message", e);
         } catch (ConnectException e) {
             logger.error("Connection error. Disconnecting...", e);
-            ClientLogger.error("Connection error. Disconnecting...", e);
+            clientLogger.error("Connection error. Disconnecting...", e);
             disconnect();
         } catch (IOException e) {
             logger.error("IOException occured while reading input message", e);
-            ClientLogger.error("IOException occured while reading input message", e);
+            clientLogger.error("IOException occured while reading input message", e);
         } finally {
             if (incomeConnection != null) {
                 incomeConnection.disconnect();
             }
         }
 
-        ClientLogger.info("End of receiving messages");
+        clientLogger.info("End of receiving messages");
         return list;
     }
 
@@ -180,26 +180,26 @@ public class Client {
         checkConnected();
         HttpURLConnection outcomeConnection = null;
         try {
-            ClientLogger.info("Start sending message \"" + message + "\"");
+            clientLogger.info("Start sending message \"" + message + "\"");
             outcomeConnection = prepareOutputConnection();
             byte[] buffer = MessageHelper.buildSendMessageRequestBody(message).getBytes();
             OutputStream outputStream = outcomeConnection.getOutputStream();
             outputStream.write(buffer, 0, buffer.length);
             outputStream.close();
             outcomeConnection.getInputStream(); //to send data to server
-            ClientLogger.info("Message sent");
+            clientLogger.info("Message sent");
         } catch (ConnectException e) {
             logger.error("Connection error. Disconnecting...", e);
-            ClientLogger.error("Connection error. Disconnecting...", e);
+            clientLogger.error("Connection error. Disconnecting...", e);
             disconnect();
         } catch (IOException e) {
             logger.error("IOException occurred while sending message", e);
-            ClientLogger.error("IOException occurred while sending message", e);
+            clientLogger.error("IOException occurred while sending message", e);
         } finally {
             if (outcomeConnection != null) {
                 outcomeConnection.disconnect();
             }
-            ClientLogger.info("Stop sending message \"" + message + "\"");
+            clientLogger.info("Stop sending message \"" + message + "\"");
         }
     }
 }
