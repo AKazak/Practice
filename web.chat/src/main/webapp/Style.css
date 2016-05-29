@@ -1,0 +1,307 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: #616161;
+}
+
+header.page-header {
+    padding: 20px;
+    font-size: 20px;
+    color: #14304e;
+    background-color: #ec825c;
+    background-position: 0 0, 0 0, 0 100%, 0 100%;
+    background-size: 10px 12px;
+}
+
+.currentName {
+    position: relative;
+    left: 0;
+}
+
+.myTitle {
+    position: absolute;
+    top: 8px;
+    float: left;
+}
+
+.titleChat {
+    position: absolute;
+    text-decoration: none;
+    color: #14304e;
+    top: 6px;
+    left: 45px;
+}
+
+.info {
+    text-align: left;
+}
+
+.myInfo {
+    text-align: right;
+}
+
+.messageBlock {
+    clear: both;
+}
+
+.bubble
+{
+    float: left;
+    text-align: justify;
+    display: inline-block;
+    padding: 5px;
+    margin-bottom: 5px;
+    width: auto;
+    max-width: 60%;
+    background: #4b4b4b;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: #E97D33 solid 2px;
+}
+
+.myBubble
+{
+    float: right;
+    text-align: justify;
+    display: inline-block;
+    padding: 5px;
+    margin-bottom: 5px;
+    width: auto;
+    max-width: 60%;
+    background: #4b4b4b;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: #E97D33 solid 2px;
+}
+
+.login {
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    top: 20px;
+}
+
+.textLogin {
+    font-weight: 400;
+    cursor: text;
+    height: 24px;
+    width: 30%;
+    color: white;
+    background-color: #777777;
+    border-radius: 4px;
+    border: 2px solid black;
+    display: inline;
+}
+
+.myButtonLogin {
+    font-weight: 400;
+    color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 20%;
+    background-color: #777777;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.myButtonLogin:active {
+    color: rgb(250, 250, 250);
+    border: 1px solid rgb(86, 86, 86);
+    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
+}
+
+.labelWarning {
+    background-color: #ec825c;
+}
+
+.labelSuccess {
+    background-color: #4b4b4b;
+}
+
+.label {
+    float: right;
+    font-weight: 400;
+    display: inline;
+    color: white;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.editInfo {
+    text-align: right;
+}
+
+.chat {
+    float: left;
+    border-radius: 4px;
+    position: absolute;
+    width: 79%;
+    height: 85%;
+}
+
+.logged {
+    display: none;
+}
+
+.loggedName {
+    color: white;
+    text-align: center;
+    padding: 13px;
+    float: left;
+    height: 20px;
+    width: 15%;
+    background-color: #777777;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.editNameButton {
+    cursor: pointer;
+    color: white;
+    background-color: #4b4b4b;
+    border-radius: 4px;
+    border: 2px solid black;
+    height: 50px;
+    width: 10%;
+}
+
+.editNameButton:active {
+    color: rgb(250, 250, 250);
+    border: 1px solid rgb(86, 86, 86);
+    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
+}
+
+.textMessage {
+    color: white;
+    height: 44px;
+    cursor: text;
+    width: 81%;
+    background-color: #777777;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.bubble, .myBubble{
+    word-wrap: break-word;
+}
+
+.myButtonMessage {
+    color: white;
+    height: 50px;
+    float: right;
+    cursor: pointer;
+    width: 18.5%;
+    background-color: #4b4b4b;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.myButtonMessage:active {
+    color: rgb(250, 250, 250);
+    border: 1px solid rgb(86, 86, 86);
+    background: rgb(159, 159, 159) linear-gradient(rgb(149, 149, 149), rgb(141, 141, 141));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.84) inset;
+}
+
+.textBox {
+    overflow: auto;
+    color: white;
+    height: 80%;
+    width: 100%;
+    background-color: #777777;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.usersBox {
+    float: right;
+    color: white;
+    height: 85%;
+    width: 20%;
+    background-color: #4b4b4b;
+    border-radius: 4px;
+    border: 2px solid black;
+
+}
+
+.textLogin, .myButtonLogin {
+    width: auto;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 5px 5px 6px #777777;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 5px 5px 6px rgba(0,0,0,0.5);
+}
+
+.deleted {
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 992px) {
+    .chat {
+        border-radius: 4px;
+        float: left;
+        width: 100%;
+        height: calc(100% - 62px);
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .loggedName, .myButtonLogin, .textLogin {
+        width: auto;
+    }
+
+    .bubble, .myBubble {
+        max-width: 90%;
+    }
+
+    .textMessage {
+        width: 68%;
+    }
+
+    .myButtonMessage {
+        float: right;
+        width: 31%;
+    }
+
+    .textBox {
+        height: calc(100% - 103px);
+        width: 100%;
+    }
+
+    .usersBox {
+        display: none;
+    }
+
+    .titleChat {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .editNameButton {
+        width: 25%;
+    }
+
+    .textMessage {
+        width: 65%;
+    }
+}
