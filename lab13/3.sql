@@ -1,0 +1,1 @@
+Select * FROM chat.messages where date between '2016-05-09 00:00:00' and '2016-05-10 00:00:00' and user_id = 3;
