@@ -1,0 +1,1 @@
+SELECT users.name, messages.text, messages.date from users join messages on messages.user_id = users.id where user_id = 5 order by date desc;

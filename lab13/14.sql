@@ -1,0 +1,1 @@
+SELECT users.name, messages.text, messages.date from messages join users on users.id = messages.user_id where messages.text like '%HELLO%';
